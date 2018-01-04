@@ -1,0 +1,52 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--Menu Option for Adding the New Item -->
+    <item
+        android:id="@+id/MovieList"
+        android:icon="@drawable/three_bar_menu"
+        android:title="Movie List"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/most_popular"
+                android:orderInCategory="100"
+                android:title="Most Popular" />
+            <item
+                android:id="@+id/upcoming_movies"
+                android:orderInCategory="101"
+                android:title="Upcoming Movies" />
+            <item
+                android:id="@+id/latest_movies"
+                android:orderInCategory="102"
+                android:title="Latest Movies" />
+            <item
+                android:id="@+id/now_playing"
+                android:orderInCategory="103"
+                android:title="Now Playing" />
+            <item
+                android:id="@+id/top_rated"
+                android:orderInCategory="104"
+                android:title="Top Rated" />
+
+
+            <!-- &lt;!&ndash;Menu Option for starting New Intent which opens the Completed
+             List Of items&ndash;&gt;
+             <item
+                 android:id="@+id/completed_display"
+                 android:icon="@drawable/incomplete"
+                 android:orderInCategory="100"
+                 android:title="Add"
+                 app:showAsAction="always" />-->
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/watchlist"
+        android:title="My WatchList" />
+    <item
+        android:id="@+id/Fav"
+        android:title="Favorites" />
+    <item
+        android:id="@+id/refresh"
+        android:title="Refresh" />
+</menu>
