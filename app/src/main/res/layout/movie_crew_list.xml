@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/favorite_disable_normal" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/crew_full_name"
