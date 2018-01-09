@@ -1,7 +1,6 @@
 package com.example.thagadur.imdbmovieapp.utilities;
 
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -78,8 +77,8 @@ public class DataBase extends SQLiteOpenHelper {
         values.put(COLUMN_POSTER_PATH, poster);
         values.put(COLUMN_VOTE_AVERAGE,movieInfo.getVoteAverage());
         values.put(COLUMN_VOTE_COUNT,movieInfo.getVoteCount());
-        values.put(COLUMN_IS_FAVORITE,1);
-        values.put(COLUMN_IS_WATCHLIST,0);
+        values.put(COLUMN_IS_FAVORITE,movieInfo.getFav());
+        values.put(COLUMN_IS_WATCHLIST,movieInfo.getWatchList());
         return  db.insert(TABLE_MOVIEDETAILS, null, values);
        // db.close();
     }
@@ -115,19 +114,77 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
+    public boolean checkMovieFav(String id) {
+        try {
+            String value="1";
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor=db.rawQuery("Select * from "+TABLE_MOVIEDETAILS +" where "+COLUMN_ID+"=? AND "+COLUMN_IS_FAVORITE+"=?",new String[] {id,value });
+            return cursor.getCount() > 0;
+        } catch (Exception e) {
+            MovieDetails d = new MovieDetails();
+            //Toast.makeText(d.context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+    public boolean checkMovieWatch(String id) {
+        try {
+            String value="1";
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor=db.rawQuery("Select * from "+TABLE_MOVIEDETAILS +" where "+COLUMN_ID+"=? AND "+COLUMN_IS_WATCHLIST+"=?",new String[] {id,value });
+            return cursor.getCount() > 0;
+        } catch (Exception e) {
+            MovieDetails d = new MovieDetails();
+            //Toast.makeText(d.context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    public boolean updateFav(String id,String value){
+
+        try {
+            SQLiteDatabase db=this.getReadableDatabase();
+            Cursor cursor=db.rawQuery("update "+TABLE_MOVIEDETAILS+" SET "+COLUMN_IS_FAVORITE+"=? where "+COLUMN_ID+"=?",new String[]{value,id});
+            return cursor.getCount()>0;
+        } catch (Exception e) {
+            MovieDetails d = new MovieDetails();
+            //Toast.makeText(d.context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    public boolean updateWatch(String id,String value){
+
+        try {
+            SQLiteDatabase db=this.getReadableDatabase();
+            Cursor cursor=db.rawQuery("update "+TABLE_MOVIEDETAILS+" SET "+COLUMN_IS_WATCHLIST+"=? where "+COLUMN_ID+"=?",new String[]{value,id});
+            return cursor.getCount()>0;
+        } catch (Exception e) {
+            MovieDetails d = new MovieDetails();
+            //Toast.makeText(d.context, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
 
 
-    public List<MovieDB> getAllData() {
+    public List<MovieDB> getAllDataFav() {
         List<MovieDB> movieDBList = new ArrayList<>();
         //db=dbHelper.getReadableDatabase();
         //String query = "SELECT * FROM " + Constants.TO_DO_LIST + " where " + Constants.KEY_STATUS + " = " + 0;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor  cursor = db.rawQuery("select * from "+TABLE_MOVIEDETAILS,null);
+        String id="1";
+        Cursor  cursor = db.rawQuery("select * from "+TABLE_MOVIEDETAILS+" where "+COLUMN_IS_FAVORITE+"=?",new String[]{id});
         if (cursor.moveToFirst()) {
             do {
                 MovieDB movieDB = new MovieDB();
                 movieDB.setMovieId(cursor.getString(0).toString());
-               String poster=cursor.getString(1);
+                String title=cursor.getString(1);
+                System.out.println("MovieTitle===="+title);
+                movieDB.setMovieTitle(title);
+                String releaseDate=cursor.getString(2);
+                movieDB.setMovieReleaseDate(releaseDate);
+                //movieDB.setMovieVoteCount(cursor.getString(4));
+                movieDB.setMovieFavorite(cursor.getInt(6));
+                String poster=cursor.getString(3);
                 movieDB.setMoviePosters(poster);
                 movieDBList.add(movieDB);
             } while (cursor.moveToNext());
@@ -137,6 +194,35 @@ public class DataBase extends SQLiteOpenHelper {
         return movieDBList;
     }
 
+
+    public List<MovieDB> getAllDataWatch() {
+        List<MovieDB> movieDBList = new ArrayList<>();
+        //db=dbHelper.getReadableDatabase();
+        //String query = "SELECT * FROM " + Constants.TO_DO_LIST + " where " + Constants.KEY_STATUS + " = " + 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String id="1";
+        //MovieDetails d = new MovieDetails();
+        Cursor  cursor = db.rawQuery("select * from "+TABLE_MOVIEDETAILS+" where "+COLUMN_IS_WATCHLIST+"=?",new String[]{id});
+        if (cursor.moveToFirst()) {
+            do {
+                MovieDB movieDB = new MovieDB();
+                movieDB.setMovieId(cursor.getString(0).toString());
+                String title=cursor.getString(1);
+                System.out.println("MovieTitle===="+title);
+                movieDB.setMovieTitle(title);
+                String releaseDate=cursor.getString(2);
+                movieDB.setMovieReleaseDate(releaseDate);
+                //movieDB.setMovieVoteCount(cursor.getString(4));
+                movieDB.setMovieFavorite(cursor.getInt(6));
+                String poster=cursor.getString(3);
+                movieDB.setMoviePosters(poster);
+                movieDBList.add(movieDB);
+            } while (cursor.moveToNext());
+        }
+        System.out.println("size" + movieDBList.size());
+        cursor.close();
+        return movieDBList;
+    }
 
 
     public boolean  deleteNonFavWatchMovie(String MoiveId) {

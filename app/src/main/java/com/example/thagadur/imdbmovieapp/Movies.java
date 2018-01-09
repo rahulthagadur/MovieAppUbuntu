@@ -5,6 +5,24 @@ public class Movies {
     String _id, _vote_count, _vote_average, _popularity, _poster_path;
     String _title, release__date, _is_favorite, _is_watchlist;
 
+    public int getFav() {
+        return fav;
+    }
+
+    public void setFav(int fav) {
+        this.fav = fav;
+    }
+
+    public int getWatchList() {
+        return watchList;
+    }
+
+    public void setWatchList(int watchList) {
+        this.watchList = watchList;
+    }
+
+    int fav, watchList;
+
     // Empty constructor
     public Movies() {
 

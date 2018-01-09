@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,7 +52,7 @@ public class MovieDetails extends AppCompatActivity {
     List<MovieCastCrewDB> movieCasstDBs;
     List<MovieCastCrewDB> movieCrewDBs;
     DataBase db;
-    boolean FavId;
+    boolean FavId,WatchId,CheckMovie;
     List<MovieTrailerDBs> movieTrailerDBs;
     Bundle bundle;
     MoviePosterData moviePosterData;
@@ -77,6 +76,9 @@ public class MovieDetails extends AppCompatActivity {
         bundle = getIntent().getExtras();
         movieId = intent.getString("movieId");
         initialisationOfId();
+        isFavMovie(movieId);
+        isssWatchMovie(movieId);
+        checkMovie(movieId);
         movieDetailsUrl = "http://api.themoviedb.org/3/movie/" + movieId + apiKey;
         movieCastAndCrewsUrl = "http://api.themoviedb.org/3/movie/" + movieId + "/credits" + apiKey;
         moviePostersUrl = "http://api.themoviedb.org/3/movie/" + movieId + "/images" + apiKey;
@@ -92,33 +94,130 @@ public class MovieDetails extends AppCompatActivity {
 
                 movie = new Movies();
                 movie.setID(movieDetailsDBs.get(0).getMovieTagId());
+                movie.setTitle(movieDetailsDBs.get(0).getMovieTitle());
+                movie.setDate(movieDetailsDBs.get(0).getMovieRealeaseDate());
                 // Toast.makeText(context, "POster="+movieDetailsDBs.get(0).getMovieImage(), Toast.LENGTH_SHORT).show();
                 movie.setPosterPath(movieDetailsDBs.get(0).getMovieImage());
 
-                if (FavId) {
+                if (CheckMovie) {
+                    // check isFav
+                    if(FavId)
+                    {
+                        // if its is true update value to 0 // delete from fav list
+                        boolean check = db.updateFav(movie.getID(),"0");
 
-                    boolean check = db.deleteNonFavWatchMovie(movie.getID());
+                        if (check) {
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+
+                            favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
+
+                        } else {
+                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                    else
+                    {
+                        boolean check = db.updateFav(movie.getID(),"1");
+
+                        if (check) {
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+
+                            favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
+
+                        } else {
+                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+
+                        }
+                        // false update value to 1 //adding to favlist
+
+                    }
+
+                } else {
+                    //add data to the table
+                    movie.setFav(1);
+                    movie.setWatchList(0);
+                    Toast.makeText(context, "ID=" + db.addMovie(movie), Toast.LENGTH_SHORT).show();
+                }
+
+                isFavMovie(movieId);
+            }
+        });
+
+    watchList.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            movie = new Movies();
+            movie.setID(movieDetailsDBs.get(0).getMovieTagId());
+            movie.setTitle(movieDetailsDBs.get(0).getMovieTitle());
+            movie.setDate(movieDetailsDBs.get(0).getMovieRealeaseDate());
+            // Toast.makeText(context, "POster="+movieDetailsDBs.get(0).getMovieImage(), Toast.LENGTH_SHORT).show();
+            movie.setPosterPath(movieDetailsDBs.get(0).getMovieImage());
+
+            if (CheckMovie) {
+                // check isFav
+                if(WatchId)
+                {
+                    // if its is true update value to 0 // delete from fav list
+                    boolean check = db.updateWatch(movie.getID(),"0");
+
                     if (check) {
                         Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
 
-                        favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
+                        watchList.setImageResource(R.drawable.watchlist_disable_normal);
 
                     } else {
                         Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
 
                     }
-
-
-                } else {
-                    Toast.makeText(context, "ID=" + db.addMovie(movie), Toast.LENGTH_SHORT).show();
                 }
-                checkMovie(movieId);
+                else
+                {
+                    boolean check = db.updateWatch(movie.getID(),"1");
+
+                    if (check) {
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+
+                        watchList.setImageResource(R.drawable.watchlist_disable_normal);
+
+                    } else {
+                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+
+                    }
+                    // false update value to 1 //adding to favlist
+
+                }
+
+            } else {
+                //add data to the table
+                movie.setWatchList(1);
+                movie.setFav(0);
+                Toast.makeText(context, "ID=" + db.addMovie(movie), Toast.LENGTH_SHORT).show();
             }
-        });}
+
+            isssWatchMovie(movieId);
+        }
+    });}
+
 
     private void checkMovie(String id) {
 
         Boolean check = db.checkMovie(id);
+        if (check) { //checks if movie does not existing in database
+            favoriteImage.setImageResource(R.drawable.favorite_enable_normal);
+            CheckMovie = true;
+
+        } else {
+            favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
+            CheckMovie = false;
+        }
+
+
+    }
+    private void isFavMovie(String id) {
+
+        Boolean check = db.checkMovieFav(id);
         if (check) { //checks if movie does not existing in database
             favoriteImage.setImageResource(R.drawable.favorite_enable_normal);
             FavId = true;
@@ -126,6 +225,20 @@ public class MovieDetails extends AppCompatActivity {
         } else {
             favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
             FavId = false;
+        }
+
+
+    }
+    private void isssWatchMovie(String id) {
+
+        Boolean check = db.checkMovieWatch(id);
+        if (check) { //checks if movie does not existing in database
+            watchList.setImageResource(R.drawable.watchlist_enable_normal);
+            WatchId = true;
+
+        } else {
+            watchList.setImageResource(R.drawable.watchlist_disable_normal);
+            WatchId = false;
         }
 
 

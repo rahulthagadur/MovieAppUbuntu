@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.thagadur.imdbmovieapp.Adapters.MovieFavAndWatchListAdapter;
 import com.example.thagadur.imdbmovieapp.Adapters.MovieListAdapter;
 import com.example.thagadur.imdbmovieapp.Contants.Constant;
 import com.example.thagadur.imdbmovieapp.Module.MovieDB;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     DataBase db;
     List<MovieDB> movieDBList;
     MovieListAdapter movieListAdapter;
+    MovieFavAndWatchListAdapter movieFavAndWatchListAdapter;
     ArrayList<HashMap<String, String>> movieList;
     String movieDbUrlPopular;
     String movieUrlQuery;
@@ -143,12 +145,12 @@ public class MainActivity extends AppCompatActivity {
 
             String movieUrlQuery=Constant.SORT_BY_TOP_RATED;
             loadMovieData(movieUrlQuery);
-        } else if (selectedItemId == R.id.favourites) {
+        } else if (selectedItemId == R.id.Fav) {
             CheckData=true;
             //String poster=dataBase.getAllData().get(0).getImagePath();
             //Toast.makeText(context,"DataPoster="+dataBase.getAllData().get(0).getImagePath(),Toast.LENGTH_LONG).show();
-            movieListAdapter = new MovieListAdapter(context, db.getAllData());
-            movieRecyclerView.setAdapter(movieListAdapter);
+            movieFavAndWatchListAdapter = new MovieFavAndWatchListAdapter(context, db.getAllDataFav());
+            movieRecyclerView.setAdapter(movieFavAndWatchListAdapter);
 
             /*db = new DataBase(this);
             movieDBList = db.getAllData();
@@ -160,8 +162,15 @@ public class MainActivity extends AppCompatActivity {
 //            movieRecyclerView.setAdapter(adapter);
 //            return true;
         }
+        else if (selectedItemId == R.id.watchlist) {
+            CheckData = true;
+            //String poster=dataBase.getAllData().get(0).getImagePath();
+            //Toast.makeText(context,"DataPoster="+dataBase.getAllData().get(0).getImagePath(),Toast.LENGTH_LONG).show();
+            movieFavAndWatchListAdapter = new MovieFavAndWatchListAdapter(context, db.getAllDataWatch());
+            movieRecyclerView.setAdapter(movieFavAndWatchListAdapter);
+        }
 
-        return super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
     }
 
     class RequestMovieDBdata extends AsyncTask<URL,Void,String>{

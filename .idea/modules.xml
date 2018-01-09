@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IMDBMovieApp.iml" filepath="$PROJECT_DIR$/IMDBMovieApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/IMDBMovieApplication-master.iml" filepath="$PROJECT_DIR$/IMDBMovieApplication-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MovieAppUbuntu.iml" filepath="$PROJECT_DIR$/MovieAppUbuntu.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

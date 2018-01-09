@@ -16,18 +16,18 @@ import com.example.thagadur.imdbmovieapp.MovieDetails;
 import com.example.thagadur.imdbmovieapp.R;
 import com.squareup.picasso.Picasso;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 /**
- * Created by Thagadur on 11/4/2017.
+ * Created by Thagadur on 1/9/2018.
  */
 
-public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
+public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAndWatchListAdapter.MovieViewHolder> {
+
     List<MovieDB> MovieDBList;
     Context context;
 
-    public MovieListAdapter(Context context, List<MovieDB> MovieDBList) {
+    public MovieFavAndWatchListAdapter(Context context, List<MovieDB> MovieDBList) {
         this.context = context;
         this.MovieDBList = MovieDBList;
 
@@ -35,7 +35,7 @@ public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Mov
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_row_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_fav_watch_list, parent, false);
         MovieViewHolder movieViewHolder = new MovieViewHolder(view);
 
         return movieViewHolder;
@@ -47,20 +47,20 @@ public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Mov
         final MovieDB MovieDB = MovieDBList.get(position);
         final String moviePoster = MovieDB.getMoviePosters();
         final String movieTitle = MovieDB.getMovieTitle();
-       // final String movieDescription = MovieDB.getMovieDescription();
+        // final String movieDescription = MovieDB.getMovieDescription();
         final String movieReleaseDate = MovieDB.getMovieReleaseDate();
         final String movieRating = MovieDB.getMovieRating();
         final String movieId = MovieDB.getMovieId();
         final String movieVoteCount= MovieDB.getMovieVoteCount();
-        final float movieRatingBar=Float.parseFloat(MovieDB.getMovieRating())/10;
-        final float movieRatingBarFive=Float.parseFloat(MovieDB.getMovieRating())/2;
+        /*final float movieRatingBar=Float.parseFloat(MovieDB.getMovieRating())/10;
+        final float movieRatingBarFive=Float.parseFloat(MovieDB.getMovieRating())/2;*/
 
-        holder.movieTitle.setText(movieTitle);
-        holder.movieVoteCount.setText("("+movieRating+"/10) voted by "+NumberFormat.getIntegerInstance().format(Integer.parseInt(movieVoteCount))+" users");
+        holder.movieTitle.setText("Movie Name : "+movieTitle);
+        //holder.movieVoteCount.setText("("+movieRating+"/10) voted by "+ NumberFormat.getIntegerInstance().format(Integer.parseInt(movieVoteCount))+" users");
         holder.movieReleaseDate.setText("Released on : "+movieReleaseDate);
         ///holder.movieVoteCount.setText("voted by "+ NumberFormat.getIntegerInstance().format(movieVoteCount)+"users");
-        holder.movieSingleStarRatingBar.setRating(movieRatingBar);
-        holder.movieRatingBarFive.setRating(movieRatingBarFive);
+        //holder.movieSingleStarRatingBar.setRating(movieRatingBar);
+        //holder.movieRatingBarFive.setRating(movieRatingBarFive);
 
         Picasso.with(context).load(Constant.POSTER_PATH + moviePoster).into(holder.imageViewMoviePoster);
 
@@ -94,11 +94,11 @@ public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Mov
             imageViewMoviePoster = itemView.findViewById(R.id.movie_image);
             movieTitle=itemView.findViewById(R.id.movie_title);
             movieReleaseDate=itemView.findViewById(R.id.movie_release_date);
-            moviePopularity=itemView.findViewById(R.id.movie_popularity);
-            movieRatingBarFive=itemView.findViewById(R.id.ratingBar);
-            movieSingleStarRatingBar=itemView.findViewById(R.id.user_rating);
-            movieVoteAverage=itemView.findViewById(R.id.movie_vote_average);
-            movieVoteCount=itemView.findViewById(R.id.movie_vote_count);
+            //moviePopularity=itemView.findViewById(R.id.movie_popularity);
+           // movieRatingBarFive=itemView.findViewById(R.id.ratingBar);
+            //movieSingleStarRatingBar=itemView.findViewById(R.id.user_rating);
+//            movieVoteAverage=itemView.findViewById(R.id.movie_vote_average);
+//            movieVoteCount=itemView.findViewById(R.id.movie_vote_count);
 
         }
     }
