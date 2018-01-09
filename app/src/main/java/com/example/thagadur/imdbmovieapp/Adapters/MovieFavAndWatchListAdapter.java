@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * Created by Thagadur on 1/9/2018.
  */
+
 /**
  * RecyclerView which displays single Fav/watch List item
  */
@@ -28,17 +29,19 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
 
     List<MovieDB> MovieDBList;
     Context context;
+
     /**
      * Constructor of MovieFavAndWatchListAdapter
      *
      * @param context
-     * @param  MovieDBList Accepting MovieDBList ArrayList which consists of MovieDB details
+     * @param MovieDBList Accepting MovieDBList ArrayList which consists of MovieDB details
      */
     public MovieFavAndWatchListAdapter(Context context, List<MovieDB> MovieDBList) {
         this.context = context;
         this.MovieDBList = MovieDBList;
 
     }
+
     /**
      * Setting RecyclerList View Adapter Layout
      *
@@ -54,6 +57,7 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
         return movieViewHolder;
 
     }
+
     /**
      * onBindViewHolder() which binds the data to the RecyclerListAdapter
      * Like Movie data eg--title,release date etc.....
@@ -70,13 +74,13 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
         final String movieReleaseDate = MovieDB.getMovieReleaseDate();
         final String movieRating = MovieDB.getMovieRating();
         final String movieId = MovieDB.getMovieId();
-        final String movieVoteCount= MovieDB.getMovieVoteCount();
+        final String movieVoteCount = MovieDB.getMovieVoteCount();
         /*final float movieRatingBar=Float.parseFloat(MovieDB.getMovieRating())/10;
         final float movieRatingBarFive=Float.parseFloat(MovieDB.getMovieRating())/2;*/
 
-        holder.movieTitle.setText("Movie Name : "+movieTitle);
+        holder.movieTitle.setText("Movie Name : " + movieTitle);
         //holder.movieVoteCount.setText("("+movieRating+"/10) voted by "+ NumberFormat.getIntegerInstance().format(Integer.parseInt(movieVoteCount))+" users");
-        holder.movieReleaseDate.setText("Released on : "+movieReleaseDate);
+        holder.movieReleaseDate.setText("Released on : " + movieReleaseDate);
         ///holder.movieVoteCount.setText("voted by "+ NumberFormat.getIntegerInstance().format(movieVoteCount)+"users");
         //holder.movieSingleStarRatingBar.setRating(movieRatingBar);
         //holder.movieRatingBarFive.setRating(movieRatingBarFive);
@@ -86,8 +90,8 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
         holder.imageViewMoviePoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, MovieDetails.class);
-                intent.putExtra("movieId",movieId);
+                Intent intent = new Intent(context, MovieDetails.class);
+                intent.putExtra("movieId", movieId);
 //                intent.putExtra("moviePoster",moviePoster);
 //                intent.putExtra("movieTitle",movieTitle);
 //                intent.putExtra("movieReleaseDate",movieReleaseDate);
@@ -97,6 +101,7 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
             }
         });
     }
+
     /**
      * getItemCount() which returns MovieDBList list size
      *
@@ -108,17 +113,17 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewMoviePoster,moviePopularityStar;
-        TextView movieTitle, movieReleaseDate, moviePopularity,movieVoteCount,movieVoteAverage;
-        RatingBar movieSingleStarRatingBar,movieRatingBarFive;
+        ImageView imageViewMoviePoster, moviePopularityStar;
+        TextView movieTitle, movieReleaseDate, moviePopularity, movieVoteCount, movieVoteAverage;
+        RatingBar movieSingleStarRatingBar, movieRatingBarFive;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             imageViewMoviePoster = itemView.findViewById(R.id.movie_image);
-            movieTitle=itemView.findViewById(R.id.movie_title);
-            movieReleaseDate=itemView.findViewById(R.id.movie_release_date);
+            movieTitle = itemView.findViewById(R.id.movie_title);
+            movieReleaseDate = itemView.findViewById(R.id.movie_release_date);
             //moviePopularity=itemView.findViewById(R.id.movie_popularity);
-           // movieRatingBarFive=itemView.findViewById(R.id.ratingBar);
+            // movieRatingBarFive=itemView.findViewById(R.id.ratingBar);
             //movieSingleStarRatingBar=itemView.findViewById(R.id.user_rating);
 //            movieVoteAverage=itemView.findViewById(R.id.movie_vote_average);
 //            movieVoteCount=itemView.findViewById(R.id.movie_vote_count);

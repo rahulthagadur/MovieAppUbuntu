@@ -20,7 +20,7 @@ public class NetworkUtils {
    *@return  URL object
      */
 
-    public static  URL buildUrl(String movieDbQuery) {
+    public static URL buildUrl(String movieDbQuery) {
         Uri movieDbUri = Uri.parse(movieDbQuery).buildUpon()
                 .appendQueryParameter(Constant.PARAM_QUERY, Constant.API_KEY)
                 .build();
@@ -33,7 +33,7 @@ public class NetworkUtils {
         return url;
     }
 
-    public static URL buildUrlMovieDetails(String moviDetailsQuery){
+    public static URL buildUrlMovieDetails(String moviDetailsQuery) {
         Uri movieDbUri = Uri.parse(moviDetailsQuery).buildUpon()
                 .build();
         URL url = null;
@@ -53,7 +53,7 @@ public class NetworkUtils {
     * @return movieResponseResult
     * finally close the HttpURLConnection object
      */
-    public static  String getResponseFromMovieDb(URL url) throws IOException {
+    public static String getResponseFromMovieDb(URL url) throws IOException {
         String movieResponseResult = null;
         HttpURLConnection movieHttpUrlConnection = (HttpURLConnection) url.openConnection();
         try {

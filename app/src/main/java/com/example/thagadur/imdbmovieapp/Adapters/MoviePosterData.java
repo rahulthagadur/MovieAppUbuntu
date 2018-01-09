@@ -29,11 +29,11 @@ public class MoviePosterData extends RecyclerView.Adapter<MoviePosterData.MovieV
      * Constructor of MoviePosterData
      *
      * @param context
-     * @param  moviePostersList Accepting moviePostersList ArrayList which consists of MoviePostersDB details
+     * @param moviePostersList Accepting moviePostersList ArrayList which consists of MoviePostersDB details
      */
     public MoviePosterData(Context context, List<MoviePostersDB> moviePostersList) {
         this.context = context;
-        this.moviePostersList= moviePostersList;
+        this.moviePostersList = moviePostersList;
 
     }
 
@@ -64,12 +64,13 @@ public class MoviePosterData extends RecyclerView.Adapter<MoviePosterData.MovieV
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
-        final MoviePostersDB moviePostersDB=moviePostersList.get(position);
+        final MoviePostersDB moviePostersDB = moviePostersList.get(position);
         final String moviePoster = moviePostersDB.getFilePath();
 
         Picasso.with(context).load(Constant.POSTER_PATH + moviePoster).into(holder.imageViewMoviePoster);
 
     }
+
     /**
      * getItemCount() which returns moviePostersList list size
      *

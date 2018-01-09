@@ -18,23 +18,26 @@ import java.util.List;
 /**
  * Created by Thagadur on 11/29/2017.
  */
+
 /**
  * RecyclerView which displays single Crew list item
  */
 public class MovieCrewData extends RecyclerView.Adapter<MovieCrewData.MovieViewHolder> {
     List<MovieCastCrewDB> movieCrewList;
     Context context;
+
     /**
      * Constructor of MovieCrewData
      *
      * @param context
-     * @param  movieCrewList Accepting movieCrewList ArrayList which consists of MovieCastCrewDB details
+     * @param movieCrewList Accepting movieCrewList ArrayList which consists of MovieCastCrewDB details
      */
     public MovieCrewData(Context context, List<MovieCastCrewDB> movieCrewList) {
         this.context = context;
         this.movieCrewList = movieCrewList;
 
     }
+
     /**
      * Setting RecyclerList View Adapter Layout
      *
@@ -50,6 +53,7 @@ public class MovieCrewData extends RecyclerView.Adapter<MovieCrewData.MovieViewH
         return movieViewHolder;
 
     }
+
     /**
      * onBindViewHolder() which binds the data to the RecyclerListAdapter
      * Like MovieCrewData...
@@ -70,6 +74,7 @@ public class MovieCrewData extends RecyclerView.Adapter<MovieCrewData.MovieViewH
         Picasso.with(context).load(Constant.POSTER_PATH + movieCrewPoster).into(holder.imageViewMovieCrewPoster);
 
     }
+
     /**
      * getItemCount() which returns movieCrewList list size
      *

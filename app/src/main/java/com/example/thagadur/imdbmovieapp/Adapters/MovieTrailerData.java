@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by Thagadur on 11/29/2017.
  */
+
 /**
  * RecyclerView which displays single Trailer list item
  */
@@ -28,7 +29,7 @@ public class MovieTrailerData extends RecyclerView.Adapter<MovieTrailerData.Movi
      * Constructor of MovieTrailerData
      *
      * @param context
-     * @param  movieTrailerList Accepting movieTrailerList ArrayList which consists of MovieTrailerDBs details
+     * @param movieTrailerList Accepting movieTrailerList ArrayList which consists of MovieTrailerDBs details
      */
     public MovieTrailerData(Context context, List<MovieTrailerDBs> movieTrailerList) {
         this.context = context;
@@ -51,6 +52,7 @@ public class MovieTrailerData extends RecyclerView.Adapter<MovieTrailerData.Movi
         return movieViewHolder;
 
     }
+
     /**
      * onBindViewHolder() which binds the data to the RecyclerListAdapter
      * Like MovieTrailer...
@@ -78,6 +80,7 @@ public class MovieTrailerData extends RecyclerView.Adapter<MovieTrailerData.Movi
         //Picasso.with(context).load(Constant.POSTER_PATH + moviePoster).into(holder.imageViewMoviePoster);
 
     }
+
     /**
      * getItemCount() which returns movieTrailerList list size
      *
@@ -87,6 +90,7 @@ public class MovieTrailerData extends RecyclerView.Adapter<MovieTrailerData.Movi
     public int getItemCount() {
         return movieTrailerList.size();
     }
+
     /**
      * Calling viewHolder SubClass
      */

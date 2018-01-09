@@ -69,19 +69,18 @@ public class DataBase extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        String poster=movieInfo.getPosterPath();
+        String poster = movieInfo.getPosterPath();
         values.put(COLUMN_ID, movieInfo.getID());
-        values.put(COLUMN_TITLE,movieInfo.getTitle());
-        values.put(COLUMN_RELEASE_DATE,movieInfo.getDate());
+        values.put(COLUMN_TITLE, movieInfo.getTitle());
+        values.put(COLUMN_RELEASE_DATE, movieInfo.getDate());
         values.put(COLUMN_POSTER_PATH, poster);
-        values.put(COLUMN_VOTE_AVERAGE,movieInfo.getVoteAverage());
-        values.put(COLUMN_VOTE_COUNT,movieInfo.getVoteCount());
-        values.put(COLUMN_IS_FAVORITE,movieInfo.getFav());
-        values.put(COLUMN_IS_WATCHLIST,movieInfo.getWatchList());
-        return  db.insert(TABLE_MOVIEDETAILS, null, values);
-       // db.close();
+        values.put(COLUMN_VOTE_AVERAGE, movieInfo.getVoteAverage());
+        values.put(COLUMN_VOTE_COUNT, movieInfo.getVoteCount());
+        values.put(COLUMN_IS_FAVORITE, movieInfo.getFav());
+        values.put(COLUMN_IS_WATCHLIST, movieInfo.getWatchList());
+        return db.insert(TABLE_MOVIEDETAILS, null, values);
+        // db.close();
     }
-
 
 
     public boolean checkMovie(String id) {
@@ -98,9 +97,9 @@ public class DataBase extends SQLiteOpenHelper {
 
     public boolean checkMovieFav(String id) {
         try {
-            String value="1";
+            String value = "1";
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor=db.rawQuery("Select * from "+TABLE_MOVIEDETAILS +" where "+COLUMN_ID+"=? AND "+COLUMN_IS_FAVORITE+"=?",new String[] {id,value });
+            Cursor cursor = db.rawQuery("Select * from " + TABLE_MOVIEDETAILS + " where " + COLUMN_ID + "=? AND " + COLUMN_IS_FAVORITE + "=?", new String[]{id, value});
             return cursor.getCount() > 0;
         } catch (Exception e) {
             MovieDetails d = new MovieDetails();
@@ -108,11 +107,12 @@ public class DataBase extends SQLiteOpenHelper {
             return false;
         }
     }
+
     public boolean checkMovieWatch(String id) {
         try {
-            String value="1";
+            String value = "1";
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor=db.rawQuery("Select * from "+TABLE_MOVIEDETAILS +" where "+COLUMN_ID+"=? AND "+COLUMN_IS_WATCHLIST+"=?",new String[] {id,value });
+            Cursor cursor = db.rawQuery("Select * from " + TABLE_MOVIEDETAILS + " where " + COLUMN_ID + "=? AND " + COLUMN_IS_WATCHLIST + "=?", new String[]{id, value});
             return cursor.getCount() > 0;
         } catch (Exception e) {
             MovieDetails d = new MovieDetails();
@@ -121,12 +121,12 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
-    public boolean updateFav(String id,String value){
+    public boolean updateFav(String id, String value) {
 
         try {
-            SQLiteDatabase db=this.getReadableDatabase();
-            Cursor cursor=db.rawQuery("update "+TABLE_MOVIEDETAILS+" SET "+COLUMN_IS_FAVORITE+"=? where "+COLUMN_ID+"=?",new String[]{value,id});
-            return cursor.getCount()>0;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("update " + TABLE_MOVIEDETAILS + " SET " + COLUMN_IS_FAVORITE + "=? where " + COLUMN_ID + "=?", new String[]{value, id});
+            return cursor.getCount() > 0;
         } catch (Exception e) {
             MovieDetails d = new MovieDetails();
             //Toast.makeText(d.context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -134,12 +134,12 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
-    public boolean updateWatch(String id,String value){
+    public boolean updateWatch(String id, String value) {
 
         try {
-            SQLiteDatabase db=this.getReadableDatabase();
-            Cursor cursor=db.rawQuery("update "+TABLE_MOVIEDETAILS+" SET "+COLUMN_IS_WATCHLIST+"=? where "+COLUMN_ID+"=?",new String[]{value,id});
-            return cursor.getCount()>0;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("update " + TABLE_MOVIEDETAILS + " SET " + COLUMN_IS_WATCHLIST + "=? where " + COLUMN_ID + "=?", new String[]{value, id});
+            return cursor.getCount() > 0;
         } catch (Exception e) {
             MovieDetails d = new MovieDetails();
             //Toast.makeText(d.context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -153,20 +153,20 @@ public class DataBase extends SQLiteOpenHelper {
         //db=dbHelper.getReadableDatabase();
         //String query = "SELECT * FROM " + Constants.TO_DO_LIST + " where " + Constants.KEY_STATUS + " = " + 0;
         SQLiteDatabase db = this.getReadableDatabase();
-        String id="1";
-        Cursor  cursor = db.rawQuery("select * from "+TABLE_MOVIEDETAILS+" where "+COLUMN_IS_FAVORITE+"=?",new String[]{id});
+        String id = "1";
+        Cursor cursor = db.rawQuery("select * from " + TABLE_MOVIEDETAILS + " where " + COLUMN_IS_FAVORITE + "=?", new String[]{id});
         if (cursor.moveToFirst()) {
             do {
                 MovieDB movieDB = new MovieDB();
                 movieDB.setMovieId(cursor.getString(0).toString());
-                String title=cursor.getString(1);
-                System.out.println("MovieTitle===="+title);
+                String title = cursor.getString(1);
+                System.out.println("MovieTitle====" + title);
                 movieDB.setMovieTitle(title);
-                String releaseDate=cursor.getString(2);
+                String releaseDate = cursor.getString(2);
                 movieDB.setMovieReleaseDate(releaseDate);
                 //movieDB.setMovieVoteCount(cursor.getString(4));
                 movieDB.setMovieFavorite(cursor.getInt(6));
-                String poster=cursor.getString(3);
+                String poster = cursor.getString(3);
                 movieDB.setMoviePosters(poster);
                 movieDBList.add(movieDB);
             } while (cursor.moveToNext());
@@ -182,21 +182,21 @@ public class DataBase extends SQLiteOpenHelper {
         //db=dbHelper.getReadableDatabase();
         //String query = "SELECT * FROM " + Constants.TO_DO_LIST + " where " + Constants.KEY_STATUS + " = " + 0;
         SQLiteDatabase db = this.getReadableDatabase();
-        String id="1";
+        String id = "1";
         //MovieDetails d = new MovieDetails();
-        Cursor  cursor = db.rawQuery("select * from "+TABLE_MOVIEDETAILS+" where "+COLUMN_IS_WATCHLIST+"=?",new String[]{id});
+        Cursor cursor = db.rawQuery("select * from " + TABLE_MOVIEDETAILS + " where " + COLUMN_IS_WATCHLIST + "=?", new String[]{id});
         if (cursor.moveToFirst()) {
             do {
                 MovieDB movieDB = new MovieDB();
                 movieDB.setMovieId(cursor.getString(0).toString());
-                String title=cursor.getString(1);
-                System.out.println("MovieTitle===="+title);
+                String title = cursor.getString(1);
+                System.out.println("MovieTitle====" + title);
                 movieDB.setMovieTitle(title);
-                String releaseDate=cursor.getString(2);
+                String releaseDate = cursor.getString(2);
                 movieDB.setMovieReleaseDate(releaseDate);
                 //movieDB.setMovieVoteCount(cursor.getString(4));
                 movieDB.setMovieFavorite(cursor.getInt(6));
-                String poster=cursor.getString(3);
+                String poster = cursor.getString(3);
                 movieDB.setMoviePosters(poster);
                 movieDBList.add(movieDB);
             } while (cursor.moveToNext());
@@ -207,7 +207,7 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
 
-    public boolean  deleteNonFavWatchMovie(String MoiveId) {
+    public boolean deleteNonFavWatchMovie(String MoiveId) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_MOVIEDETAILS, COLUMN_ID + "=" + MoiveId, null) > 0;
 

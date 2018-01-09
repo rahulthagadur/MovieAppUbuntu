@@ -118,7 +118,7 @@ public class MovieDbJsonParse {
                 MoviePostersDB moviePostersDB = new MoviePostersDB();
                 moviePostersDB.setFilePath(movieResultJsonArray.getJSONObject(i).get("file_path").toString());
                 moviePostersDBList.add(moviePostersDB);
-                System.out.println("Hello "+moviePostersDBList.get(i).getFilePath());
+                System.out.println("Hello " + moviePostersDBList.get(i).getFilePath());
             }
         } catch (JSONException e) {
             e.printStackTrace();

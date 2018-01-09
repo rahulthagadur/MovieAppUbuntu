@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> movieList;
     String movieDbUrlPopular;
     String movieUrlQuery;
-    boolean CheckData=false;
+    boolean CheckData = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,23 +85,24 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Here initialized all the necessary objects,member variables and layout
      */
-    public void initialiseLayoutFields(){
-        context=this;
-        db= new DataBase(context);
-        movieDBList=new ArrayList<>();
-        movieDbUrlPopular=Constant.SORT_BY_POPULAR;
-        movieRecyclerView=(RecyclerView)findViewById(R.id.movie_recyler_view);
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
+    public void initialiseLayoutFields() {
+        context = this;
+        db = new DataBase(context);
+        movieDBList = new ArrayList<>();
+        movieDbUrlPopular = Constant.SORT_BY_POPULAR;
+        movieRecyclerView = (RecyclerView) findViewById(R.id.movie_recyler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         movieRecyclerView.setLayoutManager(layoutManager);
 
     }
+
     /**
      * @param movieDbUrl which consists of movieDbUrl  and movieSort
      *                   Which as been sent to buildUrl() inside NetworkUtils class
      *                   Finally calling Async Task with  returned url from  buildUrl()
      */
-    public void loadMovieData(String movieDbUrl){
-        URL url= NetworkUtils.buildUrl(movieDbUrl);
+    public void loadMovieData(String movieDbUrl) {
+        URL url = NetworkUtils.buildUrl(movieDbUrl);
         new RequestMovieDBdata().execute(url);
     }
 
@@ -124,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.sort_movies_list,menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.sort_movies_list, menu);
         return true;
 
     }
@@ -139,47 +141,35 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int selectedItemId=item.getItemId();
-        if(selectedItemId==R.id.most_popular)
-        {
+        int selectedItemId = item.getItemId();
+        if (selectedItemId == R.id.most_popular) {
 
-            String movieUrlQuery=Constant.SORT_BY_POPULAR;
+            String movieUrlQuery = Constant.SORT_BY_POPULAR;
             loadMovieData(movieUrlQuery);
-        }
-        else if(selectedItemId==R.id.now_playing)
-        {
+        } else if (selectedItemId == R.id.now_playing) {
 
-            String movieUrlQuery=Constant.SORT_BY_NOW_PLAYING;
+            String movieUrlQuery = Constant.SORT_BY_NOW_PLAYING;
             loadMovieData(movieUrlQuery);
-        }
+        } else if (selectedItemId == R.id.upcoming_movies) {
 
-        else if(selectedItemId==R.id.upcoming_movies)
-        {
-
-            String movieUrlQuery=Constant.SORT_BY_UPCOMING;
+            String movieUrlQuery = Constant.SORT_BY_UPCOMING;
             loadMovieData(movieUrlQuery);
-        }
+        } else if (selectedItemId == R.id.latest_movies) {
 
-        else if(selectedItemId==R.id.latest_movies)
-        {
-
-            String movieUrlQuery=Constant.SORT_BY_LATEST;
+            String movieUrlQuery = Constant.SORT_BY_LATEST;
             loadMovieData(movieUrlQuery);
-        }
-        else if(selectedItemId==R.id.top_rated)
-        {
+        } else if (selectedItemId == R.id.top_rated) {
 
-            String movieUrlQuery=Constant.SORT_BY_TOP_RATED;
+            String movieUrlQuery = Constant.SORT_BY_TOP_RATED;
             loadMovieData(movieUrlQuery);
         } else if (selectedItemId == R.id.Fav) {
-            CheckData=true;
+            CheckData = true;
             //String poster=dataBase.getAllData().get(0).getImagePath();
             //Toast.makeText(context,"DataPoster="+dataBase.getAllData().get(0).getImagePath(),Toast.LENGTH_LONG).show();
             movieFavAndWatchListAdapter = new MovieFavAndWatchListAdapter(context, db.getAllDataFav());
             movieRecyclerView.setAdapter(movieFavAndWatchListAdapter);
 
-        }
-        else if (selectedItemId == R.id.watchlist) {
+        } else if (selectedItemId == R.id.watchlist) {
             CheckData = true;
             //String poster=dataBase.getAllData().get(0).getImagePath();
             //Toast.makeText(context,"DataPoster="+dataBase.getAllData().get(0).getImagePath(),Toast.LENGTH_LONG).show();
@@ -187,10 +177,10 @@ public class MainActivity extends AppCompatActivity {
             movieRecyclerView.setAdapter(movieFavAndWatchListAdapter);
         }
 
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
-    class RequestMovieDBdata extends AsyncTask<URL,Void,String>{
+    class RequestMovieDBdata extends AsyncTask<URL, Void, String> {
         /**
          * In the doInBackground() network request  set up has been done
          *

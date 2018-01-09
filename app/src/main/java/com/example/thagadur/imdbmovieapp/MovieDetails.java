@@ -47,7 +47,7 @@ public class MovieDetails extends AppCompatActivity {
      */
     public static String movieId = null;
     public static String movieDetailsUrl = null;
-    public static String moviePostersUrl=null;
+    public static String moviePostersUrl = null;
     public static String movieTrailerUrl = null;
     public static String movieCastAndCrewsUrl = null;
     public static String apiKey = "?api_key=8496be0b2149805afa458ab8ec27560c";
@@ -56,7 +56,7 @@ public class MovieDetails extends AppCompatActivity {
     List<MovieCastCrewDB> movieCasstDBs;
     List<MovieCastCrewDB> movieCrewDBs;
     DataBase db;
-    boolean FavId,WatchId,CheckMovie;
+    boolean FavId, WatchId, CheckMovie;
     List<MovieTrailerDBs> movieTrailerDBs;
     Bundle bundle;
     MoviePosterData moviePosterData;
@@ -68,7 +68,7 @@ public class MovieDetails extends AppCompatActivity {
     RecyclerView moviePoster, movieCast, movieCrew, movieTrailer;
     TextView movieTitleText, movieReleaseDateText, movieBudgetText, movieRevenueText, movieReleaseStatusText;
     TextView movieVoteAverageText, movieDescriptionText, movieTagLineText, movieVoteCountUsers;
-    RatingBar movieRatingBar,movieSingleStarRatingBar;
+    RatingBar movieRatingBar, movieSingleStarRatingBar;
     ImageView movieImage, favoriteImage, watchList;
 
     @Override
@@ -107,10 +107,9 @@ public class MovieDetails extends AppCompatActivity {
 
                 if (CheckMovie) {
                     // check isFav
-                    if(FavId)
-                    {
+                    if (FavId) {
                         // if its is true update value to 0 // delete from fav list
-                        boolean check = db.updateFav(movie.getID(),"0");
+                        boolean check = db.updateFav(movie.getID(), "0");
 
                         if (check) {
                             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
@@ -121,10 +120,8 @@ public class MovieDetails extends AppCompatActivity {
                             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
 
                         }
-                    }
-                    else
-                    {
-                        boolean check = db.updateFav(movie.getID(),"1");
+                    } else {
+                        boolean check = db.updateFav(movie.getID(), "1");
 
                         if (check) {
                             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
@@ -150,61 +147,59 @@ public class MovieDetails extends AppCompatActivity {
             }
         });
 //        Onclick of watchList Condition is checked whether movie is present watchlist/not, if not added to DB
-    watchList.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+        watchList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-            movie = new Movies();
-            movie.setID(movieDetailsDBs.get(0).getMovieTagId());
-            movie.setTitle(movieDetailsDBs.get(0).getMovieTitle());
-            movie.setDate(movieDetailsDBs.get(0).getMovieRealeaseDate());
-            // Toast.makeText(context, "POster="+movieDetailsDBs.get(0).getMovieImage(), Toast.LENGTH_SHORT).show();
-            movie.setPosterPath(movieDetailsDBs.get(0).getMovieImage());
+                movie = new Movies();
+                movie.setID(movieDetailsDBs.get(0).getMovieTagId());
+                movie.setTitle(movieDetailsDBs.get(0).getMovieTitle());
+                movie.setDate(movieDetailsDBs.get(0).getMovieRealeaseDate());
+                // Toast.makeText(context, "POster="+movieDetailsDBs.get(0).getMovieImage(), Toast.LENGTH_SHORT).show();
+                movie.setPosterPath(movieDetailsDBs.get(0).getMovieImage());
 
-            if (CheckMovie) {
-                // check isFav
-                if(WatchId)
-                {
-                    // if its is true update value to 0 // delete from fav list
-                    boolean check = db.updateWatch(movie.getID(),"0");
+                if (CheckMovie) {
+                    // check isFav
+                    if (WatchId) {
+                        // if its is true update value to 0 // delete from fav list
+                        boolean check = db.updateWatch(movie.getID(), "0");
 
-                    if (check) {
-                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                        if (check) {
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
 
-                        watchList.setImageResource(R.drawable.watchlist_disable_normal);
+                            watchList.setImageResource(R.drawable.watchlist_disable_normal);
 
+                        } else {
+                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+
+                        }
                     } else {
-                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                        boolean check = db.updateWatch(movie.getID(), "1");
+
+                        if (check) {
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+
+                            watchList.setImageResource(R.drawable.watchlist_disable_normal);
+
+                        } else {
+                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+
+                        }
+                        // false update value to 1 //adding to favlist
 
                     }
-                }
-                else
-                {
-                    boolean check = db.updateWatch(movie.getID(),"1");
 
-                    if (check) {
-                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
-
-                        watchList.setImageResource(R.drawable.watchlist_disable_normal);
-
-                    } else {
-                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-
-                    }
-                    // false update value to 1 //adding to favlist
-
+                } else {
+                    //add data to the table
+                    movie.setWatchList(1);
+                    movie.setFav(0);
+                    Toast.makeText(context, "ID=" + db.addMovie(movie), Toast.LENGTH_SHORT).show();
                 }
 
-            } else {
-                //add data to the table
-                movie.setWatchList(1);
-                movie.setFav(0);
-                Toast.makeText(context, "ID=" + db.addMovie(movie), Toast.LENGTH_SHORT).show();
+                isssWatchMovie(movieId);
             }
-
-            isssWatchMovie(movieId);
-        }
-    });}
+        });
+    }
 
 
     private void checkMovie(String id) {
@@ -221,6 +216,7 @@ public class MovieDetails extends AppCompatActivity {
 
 
     }
+
     private void isFavMovie(String id) {
 
         Boolean check = db.checkMovieFav(id);
@@ -235,6 +231,7 @@ public class MovieDetails extends AppCompatActivity {
 
 
     }
+
     private void isssWatchMovie(String id) {
 
         Boolean check = db.checkMovieWatch(id);
@@ -260,8 +257,9 @@ public class MovieDetails extends AppCompatActivity {
         URL url = NetworkUtils.buildUrl(movieCastCrewUrl);
         new RequestMovieCastCrewdata().execute(url);
     }
-    public void laodMoviePostersData(String moviePostersUrl){
-        URL url =NetworkUtils.buildUrl(moviePostersUrl);
+
+    public void laodMoviePostersData(String moviePostersUrl) {
+        URL url = NetworkUtils.buildUrl(moviePostersUrl);
         new RequestMoviePostersdata().execute(url);
     }
 
@@ -287,10 +285,10 @@ public class MovieDetails extends AppCompatActivity {
         movieRatingBar = (RatingBar) findViewById(R.id.ratingBar2);
         movieImage = (ImageView) findViewById(R.id.movieImage);
         movieSingleStarRatingBar = (RatingBar) findViewById(R.id.movie_single_star_rating_bar);
-        db= new DataBase(MovieDetails.this);
+        db = new DataBase(MovieDetails.this);
 
-        moviePoster=(RecyclerView)findViewById(R.id.poster_image);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context,LinearLayout.HORIZONTAL,false);
+        moviePoster = (RecyclerView) findViewById(R.id.poster_image);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayout.HORIZONTAL, false);
         moviePoster.setLayoutManager(linearLayoutManager);
 
         movieTrailer = (RecyclerView) findViewById(R.id.trailer_list);
@@ -317,9 +315,9 @@ public class MovieDetails extends AppCompatActivity {
         setDataIntoLayoutFields(movieDetailsDBs);
     }
 
-    private void loadMoviePostersAdapter(String movieResponsePosterData){
+    private void loadMoviePostersAdapter(String movieResponsePosterData) {
 
-        moviePostersDBs= MovieDbJsonParse.parseMoviePostersStringToJson(movieResponsePosterData);
+        moviePostersDBs = MovieDbJsonParse.parseMoviePostersStringToJson(movieResponsePosterData);
         setPosterIntoLayoutFields(moviePostersDBs);
 
     }
@@ -355,12 +353,13 @@ public class MovieDetails extends AppCompatActivity {
         movieCast.setAdapter(movieCastData);
     }
 
-    public void setPosterIntoLayoutFields(List<MoviePostersDB> moviePostersDBs){
+    public void setPosterIntoLayoutFields(List<MoviePostersDB> moviePostersDBs) {
 
         moviePosterData = new MoviePosterData(context, moviePostersDBs);
         moviePoster.setAdapter(moviePosterData);
 
     }
+
     //    Setting Data into the Text fields From the movieDetailsDBs List
     public void setDataIntoLayoutFields(List<MovieDetailsDB> movieDetailsDBs) {
         //Formatting the Numbers into Readable Form
@@ -380,8 +379,8 @@ public class MovieDetails extends AppCompatActivity {
         movieDescriptionText.setText(movieDetailsDBs.get(0).getMovieDescription().toString());
         movieVoteCountUsers.setText(NumberFormat.getIntegerInstance().format(VoteCountUsers) + " users");
         //float d = movieVoteAvg * 10;
-        movieRatingBar.setRating(Float.parseFloat(movieDetailsDBs.get(0).getMovieVoteAverage())/2);
-        movieSingleStarRatingBar.setRating(Float.parseFloat(movieDetailsDBs.get(0).getMovieVoteAverage())/10);
+        movieRatingBar.setRating(Float.parseFloat(movieDetailsDBs.get(0).getMovieVoteAverage()) / 2);
+        movieSingleStarRatingBar.setRating(Float.parseFloat(movieDetailsDBs.get(0).getMovieVoteAverage()) / 10);
 
         //movieRatingBar.setStepSize(d);
     }
@@ -421,17 +420,17 @@ public class MovieDetails extends AppCompatActivity {
      * Requesting Posters data from the api and data has been send to loadMoviePostersAdapter in
      * String form
      */
-    class  RequestMoviePostersdata extends  AsyncTask<URL, Void, String>{
+    class RequestMoviePostersdata extends AsyncTask<URL, Void, String> {
 
         @Override
         protected String doInBackground(URL... urls) {
-            String moviePostersResponseData=null;
-            URL url =urls[0];
+            String moviePostersResponseData = null;
+            URL url = urls[0];
             try {
-                moviePostersResponseData=NetworkUtils.getResponseFromMovieDb(url);
+                moviePostersResponseData = NetworkUtils.getResponseFromMovieDb(url);
             } catch (IOException e) {
                 e.printStackTrace();
-                moviePostersResponseData=e.getMessage();
+                moviePostersResponseData = e.getMessage();
             }
 
 
@@ -441,7 +440,7 @@ public class MovieDetails extends AppCompatActivity {
         protected void onPostExecute(String movieResponsePosterData) {
             super.onPostExecute(movieResponsePosterData);
             Log.d("Data", movieResponsePosterData);
-            if (movieResponsePosterData!= null) {
+            if (movieResponsePosterData != null) {
                 loadMoviePostersAdapter(movieResponsePosterData);
             }
         }

@@ -1,17 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="10dp"
     android:paddingTop="10dp">
-<!--Favorite movie list / WatchList -->
+    <!--Favorite movie list / WatchList -->
     <TextView
         android:id="@+id/movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/movie_image"
         android:layout_toRightOf="@+id/movie_image"
         android:text="New Text"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
         android:textIsSelectable="false"
         android:textSize="24dp"
         android:textStyle="bold" />
@@ -19,16 +20,14 @@
     <TextView
         android:id="@+id/movie_release_date"
         android:layout_width="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:textSize="24dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/movie_title"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/movie_image"
         android:layout_toRightOf="@+id/movie_image"
         android:text="New Text"
-         />
-
+        android:textSize="24dp" />
 
 
     <ImageView

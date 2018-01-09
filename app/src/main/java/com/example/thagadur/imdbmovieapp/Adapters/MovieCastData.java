@@ -26,17 +26,19 @@ public class MovieCastData extends RecyclerView.Adapter<MovieCastData.MovieViewH
 
     List<MovieCastCrewDB> movieCastList;
     Context context;
+
     /**
      * Constructor of MovieCastData
      *
      * @param context
-     * @param  movieCastList Accepting movieCastList ArrayList which consists of MovieCastCrewDB details
+     * @param movieCastList Accepting movieCastList ArrayList which consists of MovieCastCrewDB details
      */
     public MovieCastData(Context context, List<MovieCastCrewDB> movieCastList) {
         this.context = context;
         this.movieCastList = movieCastList;
 
     }
+
     /**
      * Setting RecyclerList View Adapter Layout
      *
@@ -52,6 +54,7 @@ public class MovieCastData extends RecyclerView.Adapter<MovieCastData.MovieViewH
         return movieViewHolder;
 
     }
+
     /**
      * onBindViewHolder() which binds the data to the RecyclerListAdapter
      * Like MovieCast...
@@ -72,6 +75,7 @@ public class MovieCastData extends RecyclerView.Adapter<MovieCastData.MovieViewH
         Picasso.with(context).load(Constant.POSTER_PATH + movieCastPoster).into(holder.imageViewMovieCastPoster);
 
     }
+
     /**
      * getItemCount() which returns movieCrewList list size
      *
