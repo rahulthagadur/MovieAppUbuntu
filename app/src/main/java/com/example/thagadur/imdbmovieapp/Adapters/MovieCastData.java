@@ -19,17 +19,31 @@ import java.util.List;
  * Created by Thagadur on 11/29/2017.
  */
 
+/**
+ * RecyclerView which displays single Cast list item
+ */
 public class MovieCastData extends RecyclerView.Adapter<MovieCastData.MovieViewHolder> {
 
     List<MovieCastCrewDB> movieCastList;
     Context context;
-
+    /**
+     * Constructor of MovieCastData
+     *
+     * @param context
+     * @param  movieCastList Accepting movieCastList ArrayList which consists of MovieCastCrewDB details
+     */
     public MovieCastData(Context context, List<MovieCastCrewDB> movieCastList) {
         this.context = context;
         this.movieCastList = movieCastList;
 
     }
-
+    /**
+     * Setting RecyclerList View Adapter Layout
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_cast_list, parent, false);
@@ -38,7 +52,13 @@ public class MovieCastData extends RecyclerView.Adapter<MovieCastData.MovieViewH
         return movieViewHolder;
 
     }
-
+    /**
+     * onBindViewHolder() which binds the data to the RecyclerListAdapter
+     * Like MovieCast...
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
@@ -52,7 +72,11 @@ public class MovieCastData extends RecyclerView.Adapter<MovieCastData.MovieViewH
         Picasso.with(context).load(Constant.POSTER_PATH + movieCastPoster).into(holder.imageViewMovieCastPoster);
 
     }
-
+    /**
+     * getItemCount() which returns movieCrewList list size
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return movieCastList.size();

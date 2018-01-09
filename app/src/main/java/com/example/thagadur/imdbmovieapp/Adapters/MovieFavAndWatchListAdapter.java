@@ -21,18 +21,31 @@ import java.util.List;
 /**
  * Created by Thagadur on 1/9/2018.
  */
-
+/**
+ * RecyclerView which displays single Fav/watch List item
+ */
 public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAndWatchListAdapter.MovieViewHolder> {
 
     List<MovieDB> MovieDBList;
     Context context;
-
+    /**
+     * Constructor of MovieFavAndWatchListAdapter
+     *
+     * @param context
+     * @param  MovieDBList Accepting MovieDBList ArrayList which consists of MovieDB details
+     */
     public MovieFavAndWatchListAdapter(Context context, List<MovieDB> MovieDBList) {
         this.context = context;
         this.MovieDBList = MovieDBList;
 
     }
-
+    /**
+     * Setting RecyclerList View Adapter Layout
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_fav_watch_list, parent, false);
@@ -41,7 +54,13 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
         return movieViewHolder;
 
     }
-
+    /**
+     * onBindViewHolder() which binds the data to the RecyclerListAdapter
+     * Like Movie data eg--title,release date etc.....
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         final MovieDB MovieDB = MovieDBList.get(position);
@@ -78,7 +97,11 @@ public class MovieFavAndWatchListAdapter extends RecyclerView.Adapter<MovieFavAn
             }
         });
     }
-
+    /**
+     * getItemCount() which returns MovieDBList list size
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return MovieDBList.size();

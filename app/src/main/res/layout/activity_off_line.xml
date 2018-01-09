@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="25dp"
     android:orientation="vertical">
-
+<!--offline Activity -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"

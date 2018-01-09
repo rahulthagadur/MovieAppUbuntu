@@ -41,6 +41,10 @@ import java.util.List;
 
 public class MovieDetails extends AppCompatActivity {
 
+    /**
+     * Declared  the  Objects for required classes and member variable
+     * Like TextView, String Variables , ArrayList ...
+     */
     public static String movieId = null;
     public static String movieDetailsUrl = null;
     public static String moviePostersUrl=null;
@@ -75,6 +79,7 @@ public class MovieDetails extends AppCompatActivity {
         Bundle intent = getIntent().getExtras();
         bundle = getIntent().getExtras();
         movieId = intent.getString("movieId");
+        //initialisationOfId method is called
         initialisationOfId();
         isFavMovie(movieId);
         isssWatchMovie(movieId);
@@ -88,6 +93,7 @@ public class MovieDetails extends AppCompatActivity {
         loadMovieCastData(movieCastAndCrewsUrl);
         loadMovieTrailerData(movieTrailerUrl);
 
+//        Onclick of favoriteImage Condition is checked whether movie is fav/not, if not added to DB
         favoriteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,7 +149,7 @@ public class MovieDetails extends AppCompatActivity {
                 isFavMovie(movieId);
             }
         });
-
+//        Onclick of watchList Condition is checked whether movie is present watchlist/not, if not added to DB
     watchList.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -244,107 +250,6 @@ public class MovieDetails extends AppCompatActivity {
 
     }
 
-        /*favoriteImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkMovie(movieId);
-                movie = new Movies();
-                Object tag = favoriteImage.getTag();
-                movie._id = movieDetailsDBs.get(0).getMovieTagId();
-                movie._title = movieDetailsDBs.get(0).getMovieTitle();
-                movie._poster_path = movieDetailsDBs.get(0).getMovieImage();
-                movie.release__date = movieDetailsDBs.get(0).getMovieRealeaseDate();
-                movie._vote_average = movieDetailsDBs.get(0).getMovieVoteAverage();
-                movie._vote_count = movieDetailsDBs.get(0).getMovieVoteCountUsers();
-                if (tag == "disable") {
-                    favoriteImage.setImageResource(R.drawable.favorite_enable_normal);
-                    favoriteImage.setTag("enable");
-                    movie.setIsFavorite(String.valueOf(1));
-                    Database db = new Database(MovieDetails.this);
-                    boolean check = db.checkMovie(movie.getID());
-                    if (check)
-                        db.updateMovieF(movie);
-                    else
-                        db.addMovie(movie);
-                } else {
-                    favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
-                    favoriteImage.setTag("disable");
-                    movie.setIsFavorite(String.valueOf(0));
-                    Database db = new Database(MovieDetails.this);
-                    db.updateMovieF(movie);
-                    db.deleteNonFavWatchMovie();
-                }
-            }
-        });*/
-
-/*
-        watchList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkMovie(movieId);
-                Object tag = watchList.getTag();
-                movie._id = movieDetailsDBs.get(0).getMovieTagId();
-                movie._title = movieDetailsDBs.get(0).getMovieTitle();
-                movie._poster_path = movieDetailsDBs.get(0).getMovieImage();
-                movie.release__date = movieDetailsDBs.get(0).getMovieRealeaseDate();
-                movie._vote_average = movieDetailsDBs.get(0).getMovieVoteAverage();
-                movie._vote_count = movieDetailsDBs.get(0).getMovieVoteCountUsers();
-                if (tag == "disable") {
-                    watchList.setImageResource(R.drawable.watchlist_enable_normal);
-                    watchList.setTag("enable");
-                    movie.setIsWatchlist(String.valueOf(1));
-                    DataBase db = new DataBase(MovieDetails.this);
-                    boolean check = db.checkMovie(movie.getID());
-                    if (check)
-                        db.(movie);
-                    else
-                        db.addMovie(movie);
-                } else {
-                    watchList.setImageResource(R.drawable.watchlist_disable_normal);
-                    watchList.setTag("disable");
-                    movie.setIsWatchlist(String.valueOf(0));
-                    Database db = new Database(MovieDetails.this);
-                    db.updateMovieW(movie);
-                    db.deleteNonFavWatchMovie();
-                }
-            }
-        });
-    }*/
-
-   /* private void checkMovie(String id) {
-
-        Database db = new Database(MovieDetails.this);
-        db.deleteNonFavWatchMovie();
-        Boolean check = db.checkMovie(id);
-        if (!check) { //checks if movie does not existing in database
-            favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
-            favoriteImage.setTag("disable");
-            watchList.setImageResource(R.drawable.watchlist_disable_normal);
-            watchList.setTag("disable");
-        } else { //if movie does exist
-            Movies movieInfo = db.getMovie(id);
-            if (movieInfo.getIsFavorite().equals("0")) { //set image based on database value
-                favoriteImage.setImageResource(R.drawable.favorite_disable_normal);
-                favoriteImage.setTag("disable");
-                movie.setIsFavorite(String.valueOf(0));
-
-            } else {
-                favoriteImage.setImageResource(R.drawable.favorite_enable_normal);
-                favoriteImage.setTag("enable");
-                movie.setIsFavorite(String.valueOf(1));
-            }
-
-            if (movieInfo.getIsWatchlist().equals("0")) { //set image based on database value
-                watchList.setImageResource(R.drawable.watchlist_disable_normal);
-                watchList.setTag("disable");
-                movie.setIsWatchlist(String.valueOf(0));
-            } else {
-                watchList.setImageResource(R.drawable.watchlist_enable_normal);
-                watchList.setTag("enable");
-                movie.setIsWatchlist(String.valueOf(1));
-            }
-        }
-    }*/
 
     public void loadMovieTrailerData(String movieTrailerUrl) {
         URL url = NetworkUtils.buildUrl(movieTrailerUrl);
@@ -365,6 +270,9 @@ public class MovieDetails extends AppCompatActivity {
         new RequestMovieDetailsdata().execute(url);
     }
 
+    /**
+     * Here initialized all the necessary objects,member variables and layout,TextView, ImageView,RecyclerView,ArrayAdapter etc..
+     */
     public void initialisationOfId() {
         context = this;
         movieTitleText = (TextView) findViewById(R.id.title);
@@ -453,7 +361,7 @@ public class MovieDetails extends AppCompatActivity {
         moviePoster.setAdapter(moviePosterData);
 
     }
-    //    Stting Data into the Text fields From the movieDetailsDBs List
+    //    Setting Data into the Text fields From the movieDetailsDBs List
     public void setDataIntoLayoutFields(List<MovieDetailsDB> movieDetailsDBs) {
         //Formatting the Numbers into Readable Form
         int movieBudget = Integer.parseInt(movieDetailsDBs.get(0).getMovieBudget().toString());
@@ -478,6 +386,10 @@ public class MovieDetails extends AppCompatActivity {
         //movieRatingBar.setStepSize(d);
     }
 
+    /**
+     * Requesting Cast and Crew data from the api and data has been send to loadMovieCastCrewAdapter in
+     * String form
+     */
     class RequestMovieCastCrewdata extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -504,6 +416,11 @@ public class MovieDetails extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Requesting Posters data from the api and data has been send to loadMoviePostersAdapter in
+     * String form
+     */
     class  RequestMoviePostersdata extends  AsyncTask<URL, Void, String>{
 
         @Override
@@ -530,6 +447,10 @@ public class MovieDetails extends AppCompatActivity {
         }
     }
 
+    /**
+     * Requesting Moview Details data from the api and data has been send to loadMovieAdapter in
+     * String form for Json conversion
+     */
     class RequestMovieDetailsdata extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -557,6 +478,10 @@ public class MovieDetails extends AppCompatActivity {
         }
     }
 
+    /**
+     * Requesting Trailer Details data from the api and data has been send to loadMovieTrailerAdapter in
+     * String form for Json conversion
+     */
     class RequestMovieTrailerdata extends AsyncTask<URL, Void, String> {
 
         @Override

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import com.example.thagadur.imdbmovieapp.Module.MovieDB;
 import com.example.thagadur.imdbmovieapp.MovieDetails;
@@ -83,24 +82,7 @@ public class DataBase extends SQLiteOpenHelper {
        // db.close();
     }
 
-    public Movies getMovie(String id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_MOVIEDETAILS, new String[]{COLUMN_TITLE, COLUMN_RELEASE_DATE,
-                        COLUMN_POSTER_PATH, COLUMN_VOTE_AVERAGE, COLUMN_VOTE_COUNT, COLUMN_IS_FAVORITE, COLUMN_IS_WATCHLIST}, COLUMN_ID + "=?",
-                new String[]{id}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-        Movies movieInfo = new Movies();
-        try {
-            movieInfo.setID(id);
-            movieInfo.setPosterPath(cursor.getString(2));
-        } catch (Exception e) {
-            MovieDetails d = new MovieDetails();
-            Toast.makeText(d.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        db.close();
-        return movieInfo;
-    }
+
 
     public boolean checkMovie(String id) {
         try {

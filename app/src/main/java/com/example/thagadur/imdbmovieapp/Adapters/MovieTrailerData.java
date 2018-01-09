@@ -17,17 +17,32 @@ import java.util.List;
 /**
  * Created by Thagadur on 11/29/2017.
  */
-
+/**
+ * RecyclerView which displays single Trailer list item
+ */
 public class MovieTrailerData extends RecyclerView.Adapter<MovieTrailerData.MovieViewHolder> {
     List<MovieTrailerDBs> movieTrailerList;
     Context context;
 
+    /**
+     * Constructor of MovieTrailerData
+     *
+     * @param context
+     * @param  movieTrailerList Accepting movieTrailerList ArrayList which consists of MovieTrailerDBs details
+     */
     public MovieTrailerData(Context context, List<MovieTrailerDBs> movieTrailerList) {
         this.context = context;
         this.movieTrailerList = movieTrailerList;
 
     }
 
+    /**
+     * Setting RecyclerList View Adapter Layout
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_trailer_list, parent, false);
@@ -36,6 +51,13 @@ public class MovieTrailerData extends RecyclerView.Adapter<MovieTrailerData.Movi
         return movieViewHolder;
 
     }
+    /**
+     * onBindViewHolder() which binds the data to the RecyclerListAdapter
+     * Like MovieTrailer...
+     *
+     * @param holder
+     * @param position
+     */
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
@@ -56,12 +78,18 @@ public class MovieTrailerData extends RecyclerView.Adapter<MovieTrailerData.Movi
         //Picasso.with(context).load(Constant.POSTER_PATH + moviePoster).into(holder.imageViewMoviePoster);
 
     }
-
+    /**
+     * getItemCount() which returns movieTrailerList list size
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return movieTrailerList.size();
     }
-
+    /**
+     * Calling viewHolder SubClass
+     */
     class MovieViewHolder extends RecyclerView.ViewHolder {
         TextView movieTrailerName;
 

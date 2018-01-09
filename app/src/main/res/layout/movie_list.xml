@@ -2,7 +2,7 @@
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:paddingBottom="10dp"
     android:paddingTop="10dp">
-
+<!--Movie List Item Onclick of Image moving from one activity to another -->
     <TextView
         android:id="@+id/movie_title"
         android:layout_width="wrap_content"

@@ -23,16 +23,33 @@ import java.util.List;
  * Created by Thagadur on 11/4/2017.
  */
 
+
+/**
+ * RecyclerView which displays single movie list item
+ */
 public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
     List<MovieDB> MovieDBList;
     Context context;
 
+    /**
+     * Constructor of MovieListAdapter
+     *
+     * @param context
+     * @param  MovieDBList Accepting movieDBList ArrayList which consists of MovieDB details
+     */
     public MovieListAdapter(Context context, List<MovieDB> MovieDBList) {
         this.context = context;
         this.MovieDBList = MovieDBList;
 
     }
 
+    /**
+     * Setting RecyclerList View Adapter Layout
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_row_item, parent, false);
@@ -42,6 +59,13 @@ public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Mov
 
     }
 
+    /**
+     * onBindViewHolder() which binds the data to the RecyclerListAdapter
+     * Like MoviePoster...
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         final MovieDB MovieDB = MovieDBList.get(position);
@@ -63,7 +87,10 @@ public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Mov
         holder.movieRatingBarFive.setRating(movieRatingBarFive);
 
         Picasso.with(context).load(Constant.POSTER_PATH + moviePoster).into(holder.imageViewMoviePoster);
-
+/**
+ * on click of imageViewMoviePoster adding all data from list adding to   Intent bundle
+ * and redirecting to MovieDetailedView Activity
+ */
         holder.imageViewMoviePoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,10 +106,19 @@ public  class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Mov
         });
     }
 
+    /**
+     * getItemCount() which returns movieDBList list size
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return MovieDBList.size();
     }
+
+    /**
+     * Calling viewHolder SubClass
+     */
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewMoviePoster,moviePopularityStar;

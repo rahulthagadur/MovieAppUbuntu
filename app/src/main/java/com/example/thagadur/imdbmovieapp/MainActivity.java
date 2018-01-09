@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Initialisation of all ID's are done here
         initialiseLayoutFields();
         movieUrlQuery = movieDbUrlPopular;
         //loadMovieData(movieUrlQuery);
-
     }
 
     /**
@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
+    /**
+     * Here initialized all the necessary objects,member variables and layout
+     */
     public void initialiseLayoutFields(){
         context=this;
         db= new DataBase(context);
@@ -90,12 +94,20 @@ public class MainActivity extends AppCompatActivity {
         movieRecyclerView.setLayoutManager(layoutManager);
 
     }
-
+    /**
+     * @param movieDbUrl which consists of movieDbUrl  and movieSort
+     *                   Which as been sent to buildUrl() inside NetworkUtils class
+     *                   Finally calling Async Task with  returned url from  buildUrl()
+     */
     public void loadMovieData(String movieDbUrl){
         URL url= NetworkUtils.buildUrl(movieDbUrl);
         new RequestMovieDBdata().execute(url);
     }
 
+    /**
+     * Here  movieListAdapter class  has been initialized
+     * and setting recyclerViewMovieList Adopter
+     */
 
     private void loadMovieAdapter(String movieResponseData) {
         movieDBList = MovieDbJsonParse.parseMovieStringToJson(movieResponseData);
@@ -103,6 +115,13 @@ public class MainActivity extends AppCompatActivity {
         movieRecyclerView.setAdapter(movieListAdapter);
     }
 
+    /**
+     * Calling onCreateOptionsMenu()
+     * and initialized menu layout
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
@@ -111,6 +130,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Calling onOptionsItemSelected() which is used to select particular option menu based on id
+     * and called loadMovieData() which loads based upon movieSort type
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int selectedItemId=item.getItemId();
@@ -152,15 +178,6 @@ public class MainActivity extends AppCompatActivity {
             movieFavAndWatchListAdapter = new MovieFavAndWatchListAdapter(context, db.getAllDataFav());
             movieRecyclerView.setAdapter(movieFavAndWatchListAdapter);
 
-            /*db = new DataBase(this);
-            movieDBList = db.getAllData();
-            movieListAdapter = new MovieListAdapter(context, movieDBList);
-            movieRecyclerView.setAdapter(movieListAdapter);*/
-//            movieList=new ArrayList<HashMap<String, String>>();
-//            movieList=db.getFavorites();
-//            MyAdapter adapter=new MyAdapter(this,movieList);
-//            movieRecyclerView.setAdapter(adapter);
-//            return true;
         }
         else if (selectedItemId == R.id.watchlist) {
             CheckData = true;
@@ -174,7 +191,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class RequestMovieDBdata extends AsyncTask<URL,Void,String>{
-
+        /**
+         * In the doInBackground() network request  set up has been done
+         *
+         * @param urls
+         * @return MovieDb resultData in String
+         */
         @Override
         protected String doInBackground(URL... urls) {
 
@@ -190,6 +212,12 @@ public class MainActivity extends AppCompatActivity {
             return movieResponseData;
         }
 
+        /**
+         * Accepted data from doInBackground and handling onPostExecute()
+         * calling loadMovieAdapter() which sets the data to recyclerViewAdapter
+         *
+         * @param movieResponseData
+         */
         @Override
         protected void onPostExecute(String movieResponseData) {
             super.onPostExecute(movieResponseData);

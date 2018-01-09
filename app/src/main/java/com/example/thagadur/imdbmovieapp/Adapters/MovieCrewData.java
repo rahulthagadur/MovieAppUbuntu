@@ -18,17 +18,30 @@ import java.util.List;
 /**
  * Created by Thagadur on 11/29/2017.
  */
-
+/**
+ * RecyclerView which displays single Crew list item
+ */
 public class MovieCrewData extends RecyclerView.Adapter<MovieCrewData.MovieViewHolder> {
     List<MovieCastCrewDB> movieCrewList;
     Context context;
-
+    /**
+     * Constructor of MovieCrewData
+     *
+     * @param context
+     * @param  movieCrewList Accepting movieCrewList ArrayList which consists of MovieCastCrewDB details
+     */
     public MovieCrewData(Context context, List<MovieCastCrewDB> movieCrewList) {
         this.context = context;
         this.movieCrewList = movieCrewList;
 
     }
-
+    /**
+     * Setting RecyclerList View Adapter Layout
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_crew_list, parent, false);
@@ -37,7 +50,13 @@ public class MovieCrewData extends RecyclerView.Adapter<MovieCrewData.MovieViewH
         return movieViewHolder;
 
     }
-
+    /**
+     * onBindViewHolder() which binds the data to the RecyclerListAdapter
+     * Like MovieCrewData...
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
@@ -51,7 +70,11 @@ public class MovieCrewData extends RecyclerView.Adapter<MovieCrewData.MovieViewH
         Picasso.with(context).load(Constant.POSTER_PATH + movieCrewPoster).into(holder.imageViewMovieCrewPoster);
 
     }
-
+    /**
+     * getItemCount() which returns movieCrewList list size
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return movieCrewList.size();

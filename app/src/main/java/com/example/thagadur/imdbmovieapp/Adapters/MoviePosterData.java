@@ -18,16 +18,32 @@ import java.util.List;
  * Created by Thagadur on 11/28/2017.
  */
 
+/**
+ * RecyclerView which displays single Poster list item
+ */
 public class MoviePosterData extends RecyclerView.Adapter<MoviePosterData.MovieViewHolder> {
     List<MoviePostersDB> moviePostersList;
     Context context;
 
+    /**
+     * Constructor of MoviePosterData
+     *
+     * @param context
+     * @param  moviePostersList Accepting moviePostersList ArrayList which consists of MoviePostersDB details
+     */
     public MoviePosterData(Context context, List<MoviePostersDB> moviePostersList) {
         this.context = context;
         this.moviePostersList= moviePostersList;
 
     }
 
+    /**
+     * Setting RecyclerList View Adapter Layout
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_poster_image, parent, false);
@@ -37,6 +53,14 @@ public class MoviePosterData extends RecyclerView.Adapter<MoviePosterData.MovieV
 
     }
 
+
+    /**
+     * onBindViewHolder() which binds the data to the RecyclerListAdapter
+     * Like MoviePoster...
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
@@ -46,12 +70,19 @@ public class MoviePosterData extends RecyclerView.Adapter<MoviePosterData.MovieV
         Picasso.with(context).load(Constant.POSTER_PATH + moviePoster).into(holder.imageViewMoviePoster);
 
     }
-
+    /**
+     * getItemCount() which returns moviePostersList list size
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return moviePostersList.size();
     }
 
+    /**
+     * Calling viewHolder SubClass
+     */
     class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewMoviePoster;
 

@@ -95,6 +95,14 @@ public class MovieDbJsonParse {
 
     }
 
+    /**
+     * parseMoviePostersStringToJson () is used to get the Json Object , Json arrays and we are going
+     * to set the value to a list of type MoviePostersDB so that the data can be Viewed in the Layout
+     *
+     * @param movieResultData- Consits of Movie Results data in the form of String
+     * @return moviePostersDBList which contains all the necessary of movie Posters details data in the ArrayList
+     */
+
     public static List<MoviePostersDB> parseMoviePostersStringToJson(String movieResultData) {
         //Log.i("Movie result Data", movieResultData);
         List<MoviePostersDB> moviePostersDBList = new ArrayList<>();
@@ -119,6 +127,13 @@ public class MovieDbJsonParse {
         return moviePostersDBList;
     }
 
+    /**
+     * parseMovieCastStringToJson () is used to get the Json Object , Json arrays and we are going
+     * to set the value to a list of type MovieCastCrewDB so that the data can be Viewed in the Layout
+     *
+     * @param movieResultData- Consits of Movie Results data in the form of String
+     * @return movieCastDBList which contains all the necessary of movie Cast   details data in the ArrayList
+     */
     public static List<MovieCastCrewDB> parseMovieCastStringToJson(String movieResultData) {
         //Log.i("Movie result Data", movieResultData);
         List<MovieCastCrewDB> movieCastDBList = new ArrayList<>();
@@ -145,6 +160,13 @@ public class MovieDbJsonParse {
         return movieCastDBList;
     }
 
+    /**
+     * parseMovieCrewStringToJson () is used to get the Json Object , Json arrays and we are going
+     * to set the value to a list of type MovieCastCrewDB so that the data can be Viewed in the Layout
+     *
+     * @param movieResultData- Consits of Movie Results data in the form of String
+     * @return movieCrewDBList which contains all the necessary of movie crew  details data in the ArrayList
+     */
     public static List<MovieCastCrewDB> parseMovieCrewStringToJson(String movieResultData) {
         //Log.i("Movie result Data", movieResultData);
         List<MovieCastCrewDB> movieCrewDBList = new ArrayList<>();
@@ -171,6 +193,13 @@ public class MovieDbJsonParse {
         return movieCrewDBList;
     }
 
+    /**
+     * parseMovieTrailerStringToJson () is used to get the Json Object , Json arrays and we are going
+     * to set the value to a list of type MovieTrailerDBs so that the data can be Viewed in the Layout
+     *
+     * @param movieResultData- Consits of Movie Results data in the form of String
+     * @return movieTrailerList which contains all the necessary of movie Trailers details data in the ArrayList
+     */
     public static List<MovieTrailerDBs> parseMovieTrailerStringToJson(String movieResultData) {
         //Log.i("Movie result Data", movieResultData);
         List<MovieTrailerDBs> movieTrailerList = new ArrayList<>();
