@@ -14,7 +14,7 @@
         android:layout_toRightOf="@+id/movie_image"
         android:text="New Text"
         android:textIsSelectable="false"
-        android:textSize="24dp"
+        android:textSize="18dp"
         android:textStyle="bold" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_toEndOf="@+id/movie_image"
         android:layout_toRightOf="@+id/movie_image"
         android:text="New Text"
-        android:textSize="24dp" />
+        android:textSize="18dp" />
 
 
     <ImageView
