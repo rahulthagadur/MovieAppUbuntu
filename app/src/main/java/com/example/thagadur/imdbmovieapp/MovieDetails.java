@@ -170,7 +170,7 @@ public class MovieDetails extends AppCompatActivity {
                             watchList.setImageResource(R.drawable.watchlist_disable_normal);
 
                         } else {
-                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
 
                         }
                     } else {
@@ -182,7 +182,7 @@ public class MovieDetails extends AppCompatActivity {
                             watchList.setImageResource(R.drawable.watchlist_disable_normal);
 
                         } else {
-                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
 
                         }
                         // false update value to 1 //adding to favlist
